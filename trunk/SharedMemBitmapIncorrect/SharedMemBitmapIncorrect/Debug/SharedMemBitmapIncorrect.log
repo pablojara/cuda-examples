@@ -1,0 +1,15 @@
+﻿Build started 5/27/2012 12:19:03 PM.
+     1>Project "E:\VSProjects\CUDA\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\SharedMemBitmapIncorrect.lastbuildstate".
+       CudaClean:
+         cmd.exe /C "C:\Users\Siddharth\AppData\Local\Temp\bbef836051f444e79d504967bd904885.cmd"
+         "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin\nvcc.exe" -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\include"  -G  --keep-dir "Debug" -maxrregcount=0  --machine 32 --compile  -g    -Xcompiler "/EHsc /nologo /Od /Zi  /MDd  " -o "Debug\kernel.cu.obj" "E:\VSProjects\CUDA\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect\kernel.cu" -clean
+         
+         E:\VSProjects\CUDA\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\bin\nvcc.exe" -ccbin "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin"  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v4.2\include"  -G  --keep-dir "Debug" -maxrregcount=0  --machine 32 --compile  -g    -Xcompiler "/EHsc /nologo /Od /Zi  /MDd  " -o "Debug\kernel.cu.obj" "E:\VSProjects\CUDA\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect\kernel.cu" -clean 
+         Deleting file "Debug\kernel.cu.deps".
+     1>Done Building Project "E:\VSProjects\CUDA\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect\SharedMemBitmapIncorrect.vcxproj" (clean target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.59
