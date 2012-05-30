@@ -11,7 +11,7 @@
 #define INF 2e10f
 #define rnd(x) (x * rand() / RAND_MAX)
 #define SPHERES 20
-#define DIM 512
+#define DIM 1024
 
 struct Sphere {
 	float r, g, b;
@@ -21,8 +21,8 @@ struct Sphere {
 	__device__ float hit(float ox, float oy, float* n) {
 		float dx = ox - x;
 		float dy = oy - y;
-		if(dx * dx + dy * dy > radius * radius) {
-			float dz = sqrtf(radius * radius - dx * dx - dy * dy);
+		if(dx*dx + dy*dy < radius*radius) {
+			float dz = sqrtf(radius*radius - dx*dx - dy*dy);
 			*n = dz / sqrtf(radius * radius);
 			return dz + z;
 		}
@@ -39,7 +39,7 @@ __global__ void kernel(Sphere* s, unsigned char* ptr) {
 	float ox = (x - DIM/2);
 	float oy = (y - DIM/2);
 	
-	float r = 0, g = 0, b = 0;
+	float r = 1, g = 1, b = 1;
 	float maxz = -INF;
 	for(int i = 0; i < SPHERES; i++) {
 		float n;
@@ -67,10 +67,10 @@ struct DataBlock {
 int main() {
 	DataBlock   data;
 
-	//cudaEvent_t start, stop;
-	//cudaEventCreate(&start);
-	//cudaEventCreate(&stop);
-	//cudaEventRecord(start, 0);
+	cudaEvent_t start, stop;
+	cudaEventCreate(&start);
+	cudaEventCreate(&stop);
+	cudaEventRecord(start, 0);
 	std::cout<<"Creating cpu bitmap"<<std::endl;
 	CPUBitmap bitmap(DIM, DIM, &data);
 	unsigned char* dev_bitmap;
