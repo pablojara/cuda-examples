@@ -31,6 +31,8 @@ struct Sphere {
 	}
 };
 
+//__constant__ Sphere s[SPHERES];
+
 __global__ void kernel(Sphere* s, unsigned char* ptr) {
 	//map from threadIdx/blockIdx to pixel position.
 	int x = threadIdx.x + blockIdx.x * blockDim.x;
@@ -64,6 +66,7 @@ struct DataBlock {
     Sphere          *s;
 };
 
+
 int main() {
 	DataBlock   data;
 
@@ -76,13 +79,14 @@ int main() {
 	unsigned char* dev_bitmap;
 	Sphere* s;
 
+
 	//allocate memory on the GPU for the output bitmap.
 	cudaMalloc((void**)&dev_bitmap, bitmap.image_size());
 
 	//allocated memory for the sphere data set.
 	cudaMalloc((void**)&s, sizeof(Sphere) * SPHERES);
 
-	//allocated temp memory, initialize it, copy to memory on the gpu and then free our temp memory.
+	//allocated temp memory, initialize it, copy to memory on the gpu/constant and then free our temp memory.
 	Sphere* temp_s = (Sphere*)malloc(sizeof(Sphere) * SPHERES);
 	for(int i = 0; i < SPHERES; i++) {
 		temp_s[i].r = rnd(1.f);
@@ -96,6 +100,9 @@ int main() {
 
 	//Copy the sphere memory from host to the device.
 	cudaMemcpy(s, temp_s, sizeof(Sphere) * SPHERES, cudaMemcpyHostToDevice);
+
+	////Copy the sphere memory from the host to constant memory.
+	//cudaMemcpyToSymbol(s, temp_s, sizeof(Sphere) * SPHERES);
 
 	free(temp_s);
 
