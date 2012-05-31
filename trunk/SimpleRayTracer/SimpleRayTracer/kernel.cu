@@ -114,6 +114,15 @@ int main() {
 	//copy the bitmap from GPU to host.
 	cudaMemcpy(bitmap.get_ptr(), dev_bitmap, bitmap.image_size(), cudaMemcpyDeviceToHost);
 
+	cudaEventRecord(stop, 0);
+	cudaEventSynchronize(stop);
+	float elapsedTime;
+
+	cudaEventElapsedTime(&elapsedTime, start, stop);
+	std::cout<<"Time to generate: "<<elapsedTime<<std::endl;
+	cudaEventDestroy(start);
+	cudaEventDestroy(stop);
+
 	bitmap.display_and_exit();
 
 	//free host our memory.
