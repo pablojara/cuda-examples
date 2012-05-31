@@ -31,8 +31,6 @@ struct Sphere {
 	}
 };
 
-//__constant__ Sphere s[SPHERES];
-
 __global__ void kernel(Sphere* s, unsigned char* ptr) {
 	//map from threadIdx/blockIdx to pixel position.
 	int x = threadIdx.x + blockIdx.x * blockDim.x;
@@ -101,9 +99,6 @@ int main() {
 	//Copy the sphere memory from host to the device.
 	cudaMemcpy(s, temp_s, sizeof(Sphere) * SPHERES, cudaMemcpyHostToDevice);
 
-	////Copy the sphere memory from the host to constant memory.
-	//cudaMemcpyToSymbol(s, temp_s, sizeof(Sphere) * SPHERES);
-
 	free(temp_s);
 
 	//generate teh bitmap for the sphere data.
@@ -119,7 +114,7 @@ int main() {
 	float elapsedTime;
 
 	cudaEventElapsedTime(&elapsedTime, start, stop);
-	std::cout<<"Time to generate: "<<elapsedTime<<std::endl;
+	std::cout<<"Time to generate using global memory: "<<elapsedTime<<std::endl;
 	cudaEventDestroy(start);
 	cudaEventDestroy(stop);
 
